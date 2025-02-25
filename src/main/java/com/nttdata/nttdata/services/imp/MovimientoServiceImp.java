@@ -39,7 +39,7 @@ public class MovimientoServiceImp {
 
         if (!movimientoRequest.getTipoMovimiento().equalsIgnoreCase(DEPOSITO) &&
                 !movimientoRequest.getTipoMovimiento().equalsIgnoreCase(RETIRO)) {
-            throw new CustomException("Tipo de movimiento no válido.");
+            throw new CustomException("No existe el tipo de movimiento.");
         }
 
         BigDecimal nuevoSaldo = getBigDecimal(movimientoRequest, cuenta);
@@ -88,13 +88,13 @@ public class MovimientoServiceImp {
         List<Movimiento> movimientos = movimientoRepository.findByCuentaId(cuenta.getId());
 
         if (movimientos.isEmpty()) {
-            throw new CustomException("No hay movimientos registrados para esta cuenta");
+            throw new CustomException("No existen movimientos para esta cuenta");
         }
 
         Movimiento ultimoMovimiento = movimientos.get(movimientos.size() - 1);
 
         if (!ultimoMovimiento.getId().equals(movimientoId)) {
-            throw new CustomException("Solo se puede eliminar el último movimiento registrado");
+            throw new CustomException("Solo se puede eliminar el último movimiento");
         }
 
 
